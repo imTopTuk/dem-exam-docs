@@ -42,20 +42,41 @@ CHAPTERS = [
     ]),
 ]
 
+DISPLAY_NAMES = {
+    "Нейрохрючевый пример тут": "Практический пример",
+}
+
 
 def display_name(name: str) -> str:
     """Keep Obsidian filenames intact while hiding placeholder suffixes."""
-    return name.removesuffix(" тема")
+    cleaned = name.removesuffix(" тема")
+    return DISPLAY_NAMES.get(cleaned, cleaned)
 
 
 def normalize_display_names(text: str) -> str:
+    text = re.sub(
+        r"^##\s+Раздел/тема\s*$",
+        "## Материалы главы",
+        text,
+        flags=re.MULTILINE | re.IGNORECASE,
+    )
     text = re.sub(
         r"^(#+\s+)(.+?) тема\s*$",
         lambda match: match.group(1) + match.group(2),
         text,
         flags=re.MULTILINE,
     )
-    return re.sub(r"\[([^\]]+?) тема\](?=\()", r"[\1]", text)
+    text = re.sub(r"\[([^\]]+?) тема\](?=\()", r"[\1]", text)
+    for source, display in DISPLAY_NAMES.items():
+        text = re.sub(
+            rf"^(#+\s+){re.escape(source)}\s*$",
+            rf"\1{display}",
+            text,
+            flags=re.MULTILINE,
+        )
+        text = text.replace(f"[{source}]", f"[{display}]")
+        text = text.replace(f"({source}.md", f"({display}.md")
+    return text
 
 
 def convert_wikilinks(text: str, available: set[str]) -> str:
@@ -104,10 +125,28 @@ def main() -> None:
         else:
             text = f"# {source_name}\n"
 
-        text += "\n\n## Темы главы\n\n"
-        text += "\n".join(
-            f"- [{display_name(topic)}]({display_name(topic)}.md)" for topic in topics
-        )
+        missing = [
+            topic
+            for topic in topics
+            if f"]({display_name(topic)}.md)" not in text
+        ]
+        if missing:
+            numbers = [
+                int(value)
+                for value in re.findall(r"^(\d+)\.\s+\[", text, flags=re.MULTILINE)
+            ]
+            if numbers:
+                start = max(numbers) + 1
+                text += "\n" + "\n".join(
+                    f"{start + index}. [{display_name(topic)}]({display_name(topic)}.md)"
+                    for index, topic in enumerate(missing)
+                )
+            else:
+                text += "\n\n## Материалы главы\n\n"
+                text += "\n".join(
+                    f"- [{display_name(topic)}]({display_name(topic)}.md)"
+                    for topic in missing
+                )
         (dst / "index.md").write_text(text.rstrip() + "\n", encoding="utf-8")
 
         for topic in topics:

@@ -90,7 +90,7 @@ nav:
           - DHCP: documentation/chapter-1/Служба DHCP.md
           - DNS: documentation/chapter-1/Служба DNS.md
           - Удалённый доступ: documentation/chapter-1/Удаленный доступ.md
-          - Практический пример: documentation/chapter-1/Нейрохрючевый пример тут.md
+          - Практический пример: documentation/chapter-1/Практический пример.md
       - 2. Сетевое администрирование:
           - documentation/chapter-2/index.md
           - Виртуализация: documentation/chapter-2/Виртуализация и гипервизоры.md
