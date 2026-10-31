@@ -1,0 +1,147 @@
+site_name: Подготовка к дем. экзамену
+site_description: Документация для подготовки к демонстрационному экзамену по специальности 09.02.06
+site_author: wisyn
+site_url: https://imtoptuk.github.io/dem-exam-docs/
+repo_url: https://github.com/imTopTuk/dem-exam-docs
+repo_name: imTopTuk/dem-exam-docs
+
+theme:
+  name: material
+  language: ru
+  custom_dir: overrides
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    logo: material/server-network
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.tooltips
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Тёмная тема
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Светлая тема
+
+plugins:
+  - search:
+      lang:
+        - ru
+        - en
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/wisyn
+      name: Telegram @wisyn
+
+nav:
+  - Главная: index.md
+  - Документация:
+      - Обзор: documentation/index.md
+      - Welcome: documentation/welcome.md
+      - 0. Введение:
+          - documentation/chapter-0/index.md
+          - Общие сведения об экзамене: documentation/chapter-0/topic-01.md
+          - Структура и оценивание: documentation/chapter-0/topic-02.md
+          - Правила работы в лаборатории: documentation/chapter-0/topic-03.md
+          - Типовые сценарии заданий: documentation/chapter-0/topic-04.md
+          - Типовые ошибки и советы: documentation/chapter-0/topic-05.md
+      - 1. Базовая настройка сетей:
+          - documentation/chapter-1/index.md
+          - IP-адресация: documentation/chapter-1/IP-адресация тема.md
+          - Базовая настройка: documentation/chapter-1/Базовая настройка тема.md
+          - Коммутация L2: documentation/chapter-1/Коммутация L2 тема.md
+          - Маршрутизация: documentation/chapter-1/Маршрутизация тема.md
+          - Туннелирование: documentation/chapter-1/Туннелирование тема.md
+          - Трансляция адресов: documentation/chapter-1/Трансляция адресов.md
+          - DHCP: documentation/chapter-1/Служба DHCP.md
+          - DNS: documentation/chapter-1/Служба DNS.md
+          - Удалённый доступ: documentation/chapter-1/Удаленный доступ.md
+          - Практический пример: documentation/chapter-1/Нейрохрючевый пример тут.md
+      - 2. Сетевое администрирование:
+          - documentation/chapter-2/index.md
+          - Виртуализация: documentation/chapter-2/Виртуализация и гипервизоры.md
+          - Linux: documentation/chapter-2/Администрирование Linux.md
+          - Windows Server и AD: documentation/chapter-2/Windows Server и Active Directory.md
+          - Файловые и печатные службы: documentation/chapter-2/Файловые и печатные службы.md
+          - Веб-служба: documentation/chapter-2/Веб-служба.md
+          - Электронная почта: documentation/chapter-2/Службы электронной почты.md
+          - DNS и DHCP: documentation/chapter-2/DNS и DHCP в администрировании.md
+          - Контейнеры и облака: documentation/chapter-2/Контейнеры и облака.md
+      - 3. Эксплуатация и мониторинг:
+          - documentation/chapter-3/index.md
+          - Мониторинг: documentation/chapter-3/Мониторинг инфраструктуры.md
+          - Логи: documentation/chapter-3/Сбор и анализ логов.md
+          - Диагностика сети: documentation/chapter-3/Диагностика сети и анализ трафика.md
+          - Автоматизация и IaC: documentation/chapter-3/Автоматизация и IaC.md
+          - Обновление систем: documentation/chapter-3/Обновление и сопровождение систем.md
+          - Резервное копирование: documentation/chapter-3/Резервное копирование и восстановление.md
+          - Инвентаризация: documentation/chapter-3/Инвентаризация и документация.md
+          - ITSM: documentation/chapter-3/ITSM и обработка инцидентов.md
+      - 4. Промышленные сети и АСУ ТП:
+          - documentation/chapter-4/index.md
+          - Модель Purdue: documentation/chapter-4/АСУ ТП и модель уровней (Purdue).md
+          - ПЛК, HMI и SCADA: documentation/chapter-4/ПЛК, HMI и SCADA.md
+          - Промышленный Ethernet: documentation/chapter-4/Промышленный Ethernet.md
+          - Полевые шины: documentation/chapter-4/Полевые шины и последовательные интерфейсы.md
+          - Протоколы АСУ ТП: documentation/chapter-4/Протоколы АСУ ТП.md
+          - Коммутация и резервирование: documentation/chapter-4/Промышленная коммутация и резервирование.md
+          - Сегментация: documentation/chapter-4/Сегментация и защита промышленных сетей.md
+          - Монтаж и надёжность: documentation/chapter-4/Монтаж, среда и надёжность.md
+      - 5. Безопасность инфраструктуры:
+          - documentation/chapter-5/index.md
+          - Основы ИБ: documentation/chapter-5/Основы ИБ и модель угроз.md
+          - Защита периметра: documentation/chapter-5/Защита периметра и межсетевые экраны.md
+          - VPN: documentation/chapter-5/VPN и защищённые каналы.md
+          - Канальный уровень: documentation/chapter-5/Безопасность канального уровня.md
+          - Управление доступом: documentation/chapter-5/Аутентификация и управление доступом.md
+          - Криптография и PKI: documentation/chapter-5/Криптография и PKI.md
+          - Защита хостов: documentation/chapter-5/Защита хостов и ОС.md
+          - Мониторинг ИБ: documentation/chapter-5/Мониторинг ИБ и реагирование.md
+          - Нормативная база РФ: documentation/chapter-5/Нормативная база РФ в области ИБ.md
+  - Центр помощи: help.md
+  - Что нового: changelog.md
