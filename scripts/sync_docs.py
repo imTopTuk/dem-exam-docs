@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 import shutil
 from pathlib import Path
+from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -104,6 +105,20 @@ def ensure_title(text: str, title: str) -> str:
     return f"# {title}\n\n{text.lstrip()}"
 
 
+def redirect_page(target: str) -> str:
+    encoded_target = quote(target, safe="")
+    return (
+        "---\n"
+        "hide:\n"
+        "  - navigation\n"
+        "  - toc\n"
+        "---\n\n"
+        f'<meta http-equiv="refresh" content="0; url=../{encoded_target}/">\n\n'
+        f"# Страница переименована\n\n"
+        f"[Перейти к странице «{target}» →]({target}.md)\n"
+    )
+
+
 def main() -> None:
     if not SOURCE.exists():
         raise SystemExit(f"Source folder not found: {SOURCE}")
@@ -159,6 +174,10 @@ def main() -> None:
             (dst / f"{display_name(topic)}.md").write_text(
                 text.rstrip() + "\n", encoding="utf-8"
             )
+            if topic != display_name(topic):
+                (dst / f"{topic}.md").write_text(
+                    redirect_page(display_name(topic)), encoding="utf-8"
+                )
 
     print("Documentation synchronized successfully.")
 
