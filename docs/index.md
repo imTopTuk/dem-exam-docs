@@ -9,8 +9,8 @@ hide:
   <h1>Подготовка к<br><span>демонстрационному экзамену</span></h1>
   <p>Теория, практические задания и типовые ошибки — в одной понятной документации.</p>
   <div class="hero__actions">
-    <a class="md-button md-button--primary" href="documentation/welcome.md">Начать подготовку →</a>
-    <a class="md-button" href="documentation/index.md">Открыть документацию</a>
+    <a class="md-button md-button--primary" href="documentation/welcome/">Начать подготовку →</a>
+    <a class="md-button" href="documentation/">Открыть документацию</a>
   </div>
 </section>
 
@@ -46,7 +46,7 @@ hide:
 
     Частые проблемы с масками, маршрутизацией, службами и безопасностью.
 
-    [Разобрать ошибки →](documentation/welcome.md)
+    [Разобрать ошибки →](documentation/chapter-0/topic-05.md)
 
 </div>
 
