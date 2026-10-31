@@ -81,11 +81,11 @@ nav:
           - Типовые ошибки и советы: documentation/chapter-0/topic-05.md
       - 1. Базовая настройка сетей:
           - documentation/chapter-1/index.md
-          - IP-адресация: documentation/chapter-1/IP-адресация тема.md
-          - Базовая настройка: documentation/chapter-1/Базовая настройка тема.md
-          - Коммутация L2: documentation/chapter-1/Коммутация L2 тема.md
-          - Маршрутизация: documentation/chapter-1/Маршрутизация тема.md
-          - Туннелирование: documentation/chapter-1/Туннелирование тема.md
+          - IP-адресация: documentation/chapter-1/IP-адресация.md
+          - Базовая настройка: documentation/chapter-1/Базовая настройка.md
+          - Коммутация L2: documentation/chapter-1/Коммутация L2.md
+          - Маршрутизация: documentation/chapter-1/Маршрутизация.md
+          - Туннелирование: documentation/chapter-1/Туннелирование.md
           - Трансляция адресов: documentation/chapter-1/Трансляция адресов.md
           - DHCP: documentation/chapter-1/Служба DHCP.md
           - DNS: documentation/chapter-1/Служба DNS.md

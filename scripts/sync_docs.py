@@ -43,16 +43,31 @@ CHAPTERS = [
 ]
 
 
+def display_name(name: str) -> str:
+    """Keep Obsidian filenames intact while hiding placeholder suffixes."""
+    return name.removesuffix(" тема")
+
+
+def normalize_display_names(text: str) -> str:
+    text = re.sub(
+        r"^(#+\s+)(.+?) тема\s*$",
+        lambda match: match.group(1) + match.group(2),
+        text,
+        flags=re.MULTILINE,
+    )
+    return re.sub(r"\[([^\]]+?) тема\](?=\()", r"[\1]", text)
+
+
 def convert_wikilinks(text: str, available: set[str]) -> str:
     def replace(match: re.Match[str]) -> str:
         target = match.group(1).strip()
-        label = match.group(2).strip() if match.group(2) else target
+        label = match.group(2).strip() if match.group(2) else display_name(target)
         anchor = ""
         if "#" in target:
             target, anchor = target.split("#", 1)
             anchor = "#" + anchor.lower().replace(" ", "-")
         if target in available:
-            return f"[{label}]({target}.md{anchor})"
+            return f"[{label}]({display_name(target)}.md{anchor})"
         return f"**{label}**"
 
     return re.sub(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", replace, text)
@@ -84,12 +99,15 @@ def main() -> None:
         overview = src / f"{overview_name}.md"
         if overview.exists():
             text = overview.read_text(encoding="utf-8-sig")
-            text = ensure_title(convert_wikilinks(text, available), source_name)
+            text = normalize_display_names(convert_wikilinks(text, available))
+            text = ensure_title(text, source_name)
         else:
             text = f"# {source_name}\n"
 
         text += "\n\n## Темы главы\n\n"
-        text += "\n".join(f"- [{topic}]({topic}.md)" for topic in topics)
+        text += "\n".join(
+            f"- [{display_name(topic)}]({display_name(topic)}.md)" for topic in topics
+        )
         (dst / "index.md").write_text(text.rstrip() + "\n", encoding="utf-8")
 
         for topic in topics:
@@ -97,8 +115,11 @@ def main() -> None:
             if not source_file.exists():
                 raise SystemExit(f"Missing source: {source_file}")
             text = source_file.read_text(encoding="utf-8-sig")
-            text = ensure_title(convert_wikilinks(text, available), topic)
-            (dst / f"{topic}.md").write_text(text.rstrip() + "\n", encoding="utf-8")
+            text = normalize_display_names(convert_wikilinks(text, available))
+            text = ensure_title(text, display_name(topic))
+            (dst / f"{display_name(topic)}.md").write_text(
+                text.rstrip() + "\n", encoding="utf-8"
+            )
 
     print("Documentation synchronized successfully.")
 
